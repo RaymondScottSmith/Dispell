@@ -31,9 +31,19 @@ public class IngCategory : ScriptableObject
 
             
         }
-        
+    }
 
+    public Ingredient GetIngredient(int id)
+    {
+        foreach (Ingredient ing in ingredients)
+        {
+            if (ing.id == id)
+            {
+                return ing;
+            }
+        }
 
+        return null;
     }
 }
 
