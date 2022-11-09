@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379a7f7f27f704644b8c775ad4b84093, type: 3}
+  m_Name: Cat_Book
+  m_EditorClassIdentifier: 
+  ingredients:
+  - {fileID: 11400000, guid: 2bc57be76fa348240b5eae9db6d5478e, type: 2}
+  - {fileID: 11400000, guid: 1060ca362b39c1241901b9689dc03c4c, type: 2}
+  - {fileID: 11400000, guid: 15f145a8a53166e44b6b4693e617bb42, type: 2}
+  - {fileID: 11400000, guid: 3e1727352f7d0af4b8417901854fe1ec, type: 2}
+  - {fileID: 11400000, guid: 46fe29a7b43f5644cb164ce0bed55abf, type: 2}
+  - {fileID: 11400000, guid: 2277610cfe08ae44fa7ff0ff01e3ab8e, type: 2}
+  - {fileID: 11400000, guid: ce5eee7614799374fbf6f8ba6efad54e, type: 2}
+  - {fileID: 11400000, guid: a86377af17888804daa9c6e99a7103ba, type: 2}
+  - {fileID: 11400000, guid: 9dd60e4568f29024d91b254b09fcf779, type: 2}

@@ -26,9 +26,10 @@ public class IngCategory : ScriptableObject
                 ingredients[j].beaterId = ingredients[j + 1].id;
                 ingredients[j+1].beaterId = ingredients[j + 2].id;
                 ingredients[j+2].beaterId = ingredients[j].id;
+                j += 3;
             }
 
-            j += 3;
+            
         }
         
 
