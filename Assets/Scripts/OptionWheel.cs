@@ -38,16 +38,44 @@ public class OptionWheel : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    private List<Ingredient> myCircles, myHerbs, myGems, myBooks;
+    //private List<int> circleIDs, herbIDs, gemIDs, bookIDs; 
+
     public int circleId, herbId, gemId, bookId;
     // Start is called before the first frame update
+
+
+    void Awake()
+    {
+        myCircles = circles.ingredients;
+        Shuffle(myCircles);
+        myHerbs = herbs.ingredients;
+        Shuffle(myHerbs);
+        myGems = gems.ingredients;
+        Shuffle(myGems);
+        myBooks = books.ingredients;
+        Shuffle(myBooks);
+    }
     void Start()
     {
+        
         _audioSource = GetComponent<AudioSource>();
         circleId = -1;
         herbId = -1;
         gemId = -1;
         bookId = -1;
         SetIngredientOptions();
+    }
+
+    private void Shuffle<T>(List<T> inputList)
+    {
+        for (int i = 0; i < inputList.Count - 1; i++)
+        {
+            T temp = inputList[i];
+            int rand = Random.Range(i, inputList.Count);
+            inputList[i] = inputList[rand];
+            inputList[rand] = temp;
+        }
     }
 
     public void SetIngredientOptions()
@@ -79,21 +107,21 @@ public class OptionWheel : MonoBehaviour
             switch(optionCategory)
             {
                 case 1: 
-                    optionValues.Add(circles.ingredients[i].id);
-                    op.GetComponent<Image>().sprite = circles.ingredients[i].picture;
+                    optionValues.Add(myCircles[i].id);
+                    op.GetComponent<Image>().sprite = myCircles[i].picture;
                     break;
                 case 2:
-                    optionValues.Add(herbs.ingredients[i].id);
-                    op.GetComponent<Image>().sprite = herbs.ingredients[i].picture;
+                    optionValues.Add(myHerbs[i].id);
+                    op.GetComponent<Image>().sprite = myHerbs[i].picture;
                     break;
                 case 3:
-                    optionValues.Add(gems.ingredients[i].id);
-                    op.GetComponent<Image>().sprite = gems.ingredients[i].picture;
+                    optionValues.Add(myGems[i].id);
+                    op.GetComponent<Image>().sprite = myGems[i].picture;
                     break;
                 
                 case 4:
-                    optionValues.Add(books.ingredients[i].id);
-                    op.GetComponent<Image>().sprite = books.ingredients[i].picture;
+                    optionValues.Add(myBooks[i].id);
+                    op.GetComponent<Image>().sprite = myBooks[i].picture;
                     break;
             }
             i++;
@@ -106,29 +134,29 @@ public class OptionWheel : MonoBehaviour
         {
             case 1:
                 _audioSource.PlayOneShot(selectCircle);
-                circleDisplay.sprite = circles.GetIngredient(optionValues[value]).picture;
+                circleDisplay.sprite = myCircles[value].picture;
                 circleDisplay.enabled = true;
-                circleId = circles.GetIngredient(optionValues[value]).id;
+                circleId = myCircles[value].id;
                 break;
             case 2:
                 _audioSource.PlayOneShot(selectHerb);
-                herbDisplay.sprite = herbs.GetIngredient(optionValues[value]).picture;
+                herbDisplay.sprite = myHerbs[value].picture;
                 herbDisplay.enabled = true;
-                herbId = herbs.GetIngredient(optionValues[value]).id;
+                herbId = myHerbs[value].id;
                 break;
             
             case 3:
                 _audioSource.PlayOneShot(selectGem);
-                gemDisplay.sprite = gems.GetIngredient(optionValues[value]).picture;
+                gemDisplay.sprite = myGems[value].picture;
                 gemDisplay.enabled = true;
-                gemId = gems.GetIngredient(optionValues[value]).id;
+                gemId = myGems[value].id;
                 break;
             
             case 4:
                 _audioSource.PlayOneShot(selectBook);
-                bookDisplay.sprite = books.GetIngredient(optionValues[value]).picture;
+                bookDisplay.sprite = myBooks[value].picture;
                 bookDisplay.enabled = true;
-                bookId = books.GetIngredient(optionValues[value]).id;
+                bookId = myBooks[value].id;
                 break;
         }
         

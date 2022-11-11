@@ -25,6 +25,8 @@ public class TesterScript : MonoBehaviour
 
     [SerializeField] private List<GameObject> rightPics;
 
+    [SerializeField] private GameObject leftButton, rightButton;
+
     public bool timerRunning = false;
 
     public int maxPages = 5;
@@ -76,6 +78,7 @@ public class TesterScript : MonoBehaviour
             return;
         }
         pageNumber--;
+        
         bookAnimator.SetTrigger("TurnPrev");
     }
 
@@ -145,7 +148,6 @@ public class TesterScript : MonoBehaviour
         
         for (int i = 0; i < images.Count; i++)
         {
-            Debug.Log(latestCat);
             if (latestCat >= testCategory.Count || placeInCategory >= testCategory[latestCat].ingredients.Count)
             {
                 return;
@@ -189,6 +191,24 @@ public class TesterScript : MonoBehaviour
                 timerRunning = false;
                 FindObjectOfType<GameManager>().CheckOutcome();
             }
+        }
+        
+        if (pageNumber == 0)
+        {
+            leftButton.SetActive(false);
+        }
+        else
+        {
+            leftButton.SetActive(true);
+        }
+        
+        if (pageNumber == maxPages-1)
+        {
+            rightButton.SetActive(false);
+        }
+        else
+        {
+            rightButton.SetActive(true);
         }
         
     }

@@ -33,10 +33,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioClip winSound;
 
+    [SerializeField] private Animator armAnimator;
+
+    [SerializeField] private Animator rightArmAnimator;
+
     public int numIngredients = 4;
+
+    [SerializeField] private Animator winLoseAnimator;
+
+    [SerializeField] private AudioClip loseMusic, winMusic;
+
+    void Awake()
+    {
+        numIngredients = PlayerPrefs.GetInt("Difficulty");
+    }
     // Start is called before the first frame update
     void Start()
     {
+        
         _audioSource = GetComponent<AudioSource>();
         FindObjectOfType<TesterScript>().maxIngredients = numIngredients;
         StartCoroutine(SpawnSpell());
@@ -67,12 +81,6 @@ public class GameManager : MonoBehaviour
         Ingredient herb = cats[1].ingredients[Random.Range(0, cats[1].ingredients.Count)];
         Ingredient gem = cats[2].ingredients[Random.Range(0, cats[2].ingredients.Count)];
         Ingredient book = cats[3].ingredients[Random.Range(0, cats[3].ingredients.Count)];
-
-        Debug.Log("Circle:");
-        Debug.Log(circle.picture);
-        Debug.Log(circle.id);
-        Debug.Log(circle.beaterId);
-        
         
         spellCircle.sprite = circle.picture;
         spellHerb.sprite = herb.picture;
@@ -124,22 +132,35 @@ public class GameManager : MonoBehaviour
         {
             _audioSource.PlayOneShot(winSound);
             playerAnimator.SetTrigger("Win");
-            Debug.Log("YOU WIN!");
+            StartCoroutine(WinGame());
         }
         else
         {
+            armAnimator.SetTrigger("Die");
+            rightArmAnimator.SetTrigger("Die");
             _audioSource.PlayOneShot(deathSound);
             playerAnimator.SetTrigger("Die");
-            Debug.Log("YOU LOSE!");
+            StartCoroutine(LoseGame());
         }
+    }
+
+    private IEnumerator LoseGame()
+    {
+        yield return new WaitForSeconds(1f);
+        _audioSource.PlayOneShot(loseMusic);
+        winLoseAnimator.SetTrigger("Lose");
+    }
+    
+    private IEnumerator WinGame()
+    {
+        yield return new WaitForSeconds(1f);
+        _audioSource.PlayOneShot(winMusic);
+        winLoseAnimator.SetTrigger("Win");
     }
 
     public bool CheckIngredients()
     {
         OptionWheel oWheel = FindObjectOfType<OptionWheel>();
-        Debug.Log(spellCircle.sprite);
-        Debug.Log(beaterCircle);
-        Debug.Log(oWheel.circleId);
         switch (numIngredients)
         {
             case 1:
